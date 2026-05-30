@@ -25,6 +25,15 @@ def list_tasks():
         status = "✔" if t["done"] else "✘"
         print(f"{i}. [{status}] {t['task']}")
 
+def done_task(index):
+    tasks = load_tasks()
+    if index < 1 or index > len(tasks):
+        print("❌ 索引无效")
+        return
+    tasks[index - 1]["done"] = True
+    save_tasks(tasks)
+    print("✅ 任务已完成")
+
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 2:
@@ -33,3 +42,5 @@ if __name__ == "__main__":
         add_task(sys.argv[2])
     elif sys.argv[1] == "list":
         list_tasks()
+    elif sys.argv[1] == "done":
+        done_task(int(sys.argv[2]))
